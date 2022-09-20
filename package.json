@@ -1,8 +1,8 @@
 {
-  "name": "react-cross-fade",
+  "name": "react-crossfade-simple",
   "version": "1.0.0",
-  "repository": "iankberry/react-cross-fade",
-  "description": "A simple React library to implement a cross-fade transition between two component states",
+  "repository": "iankberry/react-crossfade-simple",
+  "description": "React component to crossfade between two states with no required CSS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "source": "src/index.ts",
