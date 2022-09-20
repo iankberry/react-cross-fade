@@ -1,0 +1,59 @@
+{
+  "name": "react-cross-fade",
+  "version": "1.0.0",
+  "repository": "iankberry/react-cross-fade",
+  "description": "A simple React library to implement a cross-fade transition between two component states",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Ian Berry",
+    "email": "iberry@raxnet.net",
+    "url": "https://iankberry.com"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "build": "tsc",
+    "demo": "webpack serve --progress --mode development --config demo/webpack.config.js"
+  },
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "keywords": [
+    "react",
+    "animation",
+    "transition",
+    "cross-fade",
+    "crossfade"
+  ],
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.38",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.2.5",
+    "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^7.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ts-loader": "^9.4.0",
+    "typescript": "^3.7.5",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.10.4",
+    "clsx": "^1.2.1",
+    "react-freeze": "^1.0.3"
+  }
+}
