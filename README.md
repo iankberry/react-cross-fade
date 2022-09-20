@@ -23,6 +23,10 @@ npm install --save react-cross-fade
 
 ## Using the demo
 
+1. Checkout this repository
+
+2. Run the below command to start the server on port 8080.
+
 ```sh
 npm run demo
 ```
