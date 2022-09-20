@@ -17,6 +17,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "test": "echo \"ok\"",
     "demo": "webpack serve --progress --mode development --config demo/webpack.config.js"
   },
   "files": [
