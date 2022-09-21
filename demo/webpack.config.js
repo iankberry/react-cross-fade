@@ -7,6 +7,17 @@ module.exports = {
         rules : [
             {
                 test    : /\.tsx?$/,
+                enforce : 'pre',
+                exclude : /node_modules/,
+                use     : [{
+                    loader  : require.resolve('eslint-loader'),
+                    options : {
+                        eslintPath                 : require.resolve('eslint'),
+                    }
+                }]
+            },
+            {
+                test    : /\.tsx?$/,
                 exclude : /node_modules/,
                 use     : [{
                     loader  : "ts-loader",
@@ -38,6 +49,13 @@ module.exports = {
         static: {
             directory: path.join(__dirname, "public"),
             publicPath  : "/",
+        },
+        client: {
+            logging: "warn",
+            overlay: {
+                warnings: false,
+                errors: true,
+            },
         },
         port        : 8080,
     }
