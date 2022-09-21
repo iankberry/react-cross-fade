@@ -37,12 +37,13 @@ npm run demo
 
 ### Props
 
-| Prop | Type                                      | Default | Definition                                                                 |
-| --- |-------------------------------------------| --- |----------------------------------------------------------------------------|
-| contentKey | `string`                                  | REQUIRED | A string that triggers the crossfade transition when it changes           |
- | onTransition | `(from: HTMLElement, to: HTMLElement) => void` | None | Called when the transition begins with the source and destination elements |
- | timeout | `number`                                  | 400 | How long to perform the transition for (in milliseconds)                   |
- | children | `React.ReactNode` | REQUIRED | The React node that will transition when `contentKey` changes.             |
+| Prop         | Type                                      | Default  | Definition                                                                 |
+|--------------|-------------------------------------------|----------|----------------------------------------------------------------------------|
+| contentKey   | `string`                                  | REQUIRED | A string that triggers the crossfade transition when it changes            |
+ | onTransition | `(from: HTMLElement, to: HTMLElement) => void` | None     | Called when the transition begins with the source and destination elements |
+| timeout      | `number`                                  | 400      | How long to perform the transition for (in milliseconds)                   |
+| style        | `React.CSSProperties`                                  | {}       | Additional CSS styles to apply to the transition container                 |
+ | children     | `React.ReactNode` | REQUIRED | The React node that will transition when `contentKey` changes.             |
 ### Detailed props
 
 #### contentKey `string`
@@ -93,6 +94,10 @@ const App = () => {
 #### timeout `number`
 
 The number of milliseconds to perform the transition for. Defaults to 400 milliseconds.
+
+#### style `React.CSSProperties`
+
+Additional CSS styles to apply to the transition container.
 
 #### children `React.ReactNode`
 
