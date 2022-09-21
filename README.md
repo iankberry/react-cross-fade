@@ -1,6 +1,6 @@
 # react-crossfade-simple
 
-> React component to crossfade between two states with no required CSS
+> React component to crossfade between two states with no additional CSS
 
 This component provides a simple crossfade transition between two React component states.
 
@@ -10,14 +10,13 @@ Although there are a few crossfade libraries out there, my inspiration for this 
 
 ## Features
 
- - ✅ Works with any React node, making it suitable for both whole page navigation or just a bit of text
- - ✅ Transition state is managed using a simple `contentKey` prop. No additional CSS is required.
- - ✅ Uses the `react-freeze` library to suspend rendering from any invisible components used to perform the transition. This is useful especially for components with large subtrees such as navigation.
+ - ✅ The animation is fully managed by this component so no additional CSS is required.
+ - ✅ Works with any React node, making it suitable for both whole page navigation or just a bit of text.
+ - ✅ Transition state is managed using a simple `contentKey` prop.
  - ✅ Transition callback includes underlying DOM elements to allow for more advanced transitions.
+ - ✅ Small & simple - does not require any additional animation libraries.
 
 ## Installation
-
-> This component requires React 17 or higher due to usage of Suspense
 
 ```sh
 npm install --save react-crossfade-simple

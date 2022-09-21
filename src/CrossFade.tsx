@@ -2,7 +2,6 @@ import { css } from "@emotion/css";
 import clsx from "clsx";
 import * as React from "react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
-import { Freeze } from "react-freeze";
 
 type Props = {
     contentKey: string
@@ -16,7 +15,6 @@ type AnimationState = {
     fromNode: React.ReactNode | null
     toNode: React.ReactNode | null
     swapped: boolean
-    animating: boolean
 }
 
 export const CrossFade = ({ contentKey, onTransition, timeout = 400, style, children }: Props) => {
@@ -24,44 +22,56 @@ export const CrossFade = ({ contentKey, onTransition, timeout = 400, style, chil
     const firstNode = useRef<HTMLElement|null>(null);
     const secondNode = useRef<HTMLElement|null>(null);
 
-    // tracks the current state of the fade animation
-    const animationState = useRef<AnimationState>({ fromNode: null, toNode: children, swapped: false, animating: false });
+    // used to track when a transition is in progress
+    const animationTimer = useRef<ReturnType<typeof setTimeout>|null>(null);
 
-    // use to track previous state when contentKey changes
+    // tracks the current state of the crossfade animation
+    const animationState = useRef<AnimationState>({ fromNode: null, toNode: children, swapped: false });
+
+    // use to track previous state to know when to begin the transition
     const [previousContentKey, setPreviousContentKey] = useState(contentKey);
     const [previousChildren, setPreviousChildren] = useState(children);
+    // track state so previous children can be removed from the DOM tree after transition completes
+    const [animating, setAnimating] = useState(false);
 
     useEffect(() => {
-        let animationTimer: ReturnType<typeof setTimeout>;
-
         if (contentKey !== previousContentKey) {
             animationState.current = {
                 fromNode: previousChildren,
                 toNode: children,
                 swapped: !animationState.current.swapped,
-                animating: true, // track whether animation is in progress so both components can be unfrozen
             }
 
             // run onTransition after the next render
             requestAnimationFrame(() => {
                 if (onTransition && firstNode.current && secondNode.current) {
-                    console.log('onTransition')
                     onTransition(animationState.current.swapped ? secondNode.current : firstNode.current, animationState.current.swapped ? firstNode.current : secondNode.current);
                 }
             });
 
-            // assume animation ends after the timeout
-            animationTimer = setTimeout(() => {
-                animationState.current.animating = false;
+            // track that a transition is in progress
+            setAnimating(true);
+
+            // clear any currently active timers
+            if (animationTimer.current) {
+                clearTimeout(animationTimer.current);
+                animationTimer.current = null;
+            }
+
+            // clear state after the timeout so the previous child node can be removed
+            animationTimer.current = setTimeout(() => {
+                setAnimating(false);
             }, timeout);
         }
-
-        return () => {
-            if (animationTimer) {
-                clearTimeout(animationTimer);
-            }
-        }
     }, [contentKey, previousContentKey, children, previousChildren, onTransition, timeout]);
+
+    // clear any pending timers on unmount
+    useEffect(() => () => {
+        if (animationTimer.current) {
+            clearTimeout(animationTimer.current);
+            animationTimer.current = null;
+        }
+    }, []);
 
     useEffect(() => {
         setPreviousChildren(children);
@@ -71,19 +81,15 @@ export const CrossFade = ({ contentKey, onTransition, timeout = 400, style, chil
         setPreviousContentKey(contentKey);
     }, [contentKey]);
 
-    const { swapped, fromNode, toNode, animating } = animationState.current;
+    const { swapped, fromNode, toNode } = animationState.current;
 
     return (
         <div className={clsx('cross-fade-container', styles.root)} style={style}>
             <div className={clsx(styles.transition(timeout), styles[swapped ? 'to' : 'from'])} ref={node => firstNode.current = node}>
-                <Freeze freeze={!swapped && !animating}>
-                    {swapped ? toNode : fromNode}
-                </Freeze>
+                {swapped ? toNode : (animating ? fromNode : null)}
             </div>
             <div className={clsx(styles.transition(timeout), styles[swapped ? 'from' : 'to'])} ref={node => secondNode.current = node}>
-                <Freeze freeze={swapped && !animating}>
-                    {swapped ? fromNode : toNode}
-                </Freeze>
+                {swapped ? (animating ? fromNode : null) : toNode}
             </div>
         </div>
     )

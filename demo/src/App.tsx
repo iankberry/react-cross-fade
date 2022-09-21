@@ -3,7 +3,7 @@ import { CrossFade } from "../../src";
 
 export const App = () => {
     const [page, setPage] = React.useState(0);
-    const [timeout, setTimeout] = React.useState('1000');
+    const [timeout, setTimeout] = React.useState('5000');
 
     return (
         <div className="root">

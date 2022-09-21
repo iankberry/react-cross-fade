@@ -2,7 +2,7 @@
   "name": "react-crossfade-simple",
   "version": "1.0.4",
   "repository": "iankberry/react-crossfade-simple",
-  "description": "React component to crossfade between two states with no required CSS",
+  "description": "React component to crossfade between two states with no additional CSS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "source": "src/index.ts",
@@ -60,7 +60,6 @@
   },
   "dependencies": {
     "@emotion/css": "^11.10.0",
-    "clsx": "^1.2.1",
-    "react-freeze": "^1.0.3"
+    "clsx": "^1.2.1"
   }
 }
