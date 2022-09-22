@@ -83,13 +83,16 @@ export const CrossFade = ({ contentKey, onTransition, timeout = 400, style, chil
 
     const { swapped, fromNode, toNode } = animationState.current;
 
+    // during transition, render consistent from/to nodes to keep animation smooth
+    const isAnimating = animating || contentKey !== previousContentKey;
+
     return (
         <div className={clsx('cross-fade-container', styles.root)} style={style}>
             <div className={clsx(styles.transition(timeout), styles[swapped ? 'to' : 'from'])} ref={node => firstNode.current = node}>
-                {swapped ? toNode : (animating ? fromNode : null)}
+                {swapped ? (isAnimating ? toNode : children) : (isAnimating ? fromNode : null)}
             </div>
             <div className={clsx(styles.transition(timeout), styles[swapped ? 'from' : 'to'])} ref={node => secondNode.current = node}>
-                {swapped ? (animating ? fromNode : null) : toNode}
+                {swapped ? (isAnimating ? fromNode : null) : (isAnimating ? toNode : children)}
             </div>
         </div>
     )

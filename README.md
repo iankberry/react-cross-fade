@@ -26,7 +26,7 @@ npm install --save react-crossfade-simple
 
 1. Checkout this repository
 
-2. Run the below command to start the server on port 8080.
+2. Run the below command to start the server on port 3010.
 
 ```sh
 npm run demo
